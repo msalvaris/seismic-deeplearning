@@ -23,7 +23,7 @@ jobs:
       echo "First step"
       echo "Replace this with command"
       echo "Dummy unit test job passed"
-    displayName: Unit Test Job
+    displayName: unit_test_job
 
 - job: integration test job
   timeoutInMinutes: 10 # how long to run the job before automatically cancelling
@@ -34,4 +34,4 @@ jobs:
   - bash: |
       echo "First step"
       echo "Dummy integration test job passed"
-    displayName: Integration Test Job
+    displayName: integration_test_job
