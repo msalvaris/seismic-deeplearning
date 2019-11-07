@@ -13,7 +13,7 @@ trigger:
 
 jobs:
 
-- job: unit test job
+- job: uni_test_job
   timeoutInMinutes: 10 # how long to run the job before automatically cancelling
   pool:
     name: deepseismicagentpool
@@ -23,9 +23,9 @@ jobs:
       echo "First step"
       echo "Replace this with command"
       echo "Dummy unit test job passed"
-    displayName: unit_test_job
+    displayName: Unit Test Job
 
-- job: integration test job
+- job: integration_test_job
   timeoutInMinutes: 10 # how long to run the job before automatically cancelling
   pool:
     name: deepseismicagentpool
@@ -34,4 +34,4 @@ jobs:
   - bash: |
       echo "First step"
       echo "Dummy integration test job passed"
-    displayName: integration_test_job
+    displayName: Integration Test Job
