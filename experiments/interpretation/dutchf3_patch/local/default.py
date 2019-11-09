@@ -83,13 +83,7 @@ _C.TEST.INLINE = True
 _C.TEST.CROSSLINE = True
 _C.TEST.POST_PROCESSING = CN()  # Model output postprocessing
 _C.TEST.POST_PROCESSING.SIZE = 128  # Size to interpolate to in pixels
-<<<<<<< HEAD
 _C.TEST.POST_PROCESSING.CROP_PIXELS = 14  # Number of pixels to crop top, bottom, left and right
-=======
-_C.TEST.POST_PROCESSING.CROP_PIXELS = (
-    14  # Number of pixels to crop top, bottom, left and right
-)
->>>>>>> 40973b46e55c590c8f1d53f88cded35a4ef4d7cf
 
 
 def update_config(cfg, options=None, config_file=None):

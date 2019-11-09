@@ -93,13 +93,7 @@ def _evaluate_split(
     logger = logging.getLogger(__name__)
 
     TestSectionLoader = get_test_loader(config)
-<<<<<<< HEAD
     test_set = TestSectionLoader(data_dir=DATA_ROOT, split=split, is_transform=True, augmentations=section_aug,)
-=======
-    test_set = TestSectionLoader(
-        data_dir=DATA_ROOT, split=split, is_transform=True, augmentations=section_aug,
-    )
->>>>>>> 40973b46e55c590c8f1d53f88cded35a4ef4d7cf
 
     n_classes = test_set.n_classes
 
@@ -176,17 +170,7 @@ def test(*options, cfg=None):
     running_metrics_overall = runningScore(n_classes)
 
     # Augmentation
-<<<<<<< HEAD
     section_aug = Compose([Normalize(mean=(config.TRAIN.MEAN,), std=(config.TRAIN.STD,), max_pixel_value=1,)])
-=======
-    section_aug = Compose(
-        [
-            Normalize(
-                mean=(config.TRAIN.MEAN,), std=(config.TRAIN.STD,), max_pixel_value=1,
-            )
-        ]
-    )
->>>>>>> 40973b46e55c590c8f1d53f88cded35a4ef4d7cf
 
     splits = ["test1", "test2"] if "Both" in config.TEST.SPLIT else [config.TEST.SPLIT]
 
