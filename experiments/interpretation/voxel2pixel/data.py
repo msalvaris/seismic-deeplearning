@@ -111,27 +111,21 @@ def read_labels(fname, data_info):
 
     Returns:
         list of labels and list of coordinates
-    """    
+    """
 
     label_imgs = []
     label_coordinates = {}
 
     # Find image files in folder
-    
-    tmp = fname.split('/')[-1].split("_")
+
+    tmp = fname.split("/")[-1].split("_")
     slice_type = tmp[0].lower()
     tmp = tmp[1].split(".")
     slice_no = int(tmp[0])
 
-    if (
-        slice_type
-        not in inline_alias + crossline_alias + timeslice_alias
-    ):
+    if slice_type not in inline_alias + crossline_alias + timeslice_alias:
         print(
-            "File:",
-            fname,
-            "could not be loaded.",
-            "Unknown slice type",
+            "File:", fname, "could not be loaded.", "Unknown slice type",
         )
         return None
 
@@ -145,33 +139,22 @@ def read_labels(fname, data_info):
     # Read file
     print("Loading labels for", slice_type, slice_no, "with")
     img = scipy.misc.imread(fname)
-    img = interpolate_to_fit_data(
-        img, slice_type, slice_no, data_info
-    )
+    img = interpolate_to_fit_data(img, slice_type, slice_no, data_info)
     label_img = parse_labels_in_image(img)
 
     # Get coordinates for slice
-    coords = get_coordinates_for_slice(
-        slice_type, slice_no, data_info
-    )
+    coords = get_coordinates_for_slice(slice_type, slice_no, data_info)
 
     # Loop through labels in label_img and append to label_coordinates
     for cls in np.unique(label_img):
         if cls > -1:
             if str(cls) not in label_coordinates.keys():
-                label_coordinates[str(cls)] = np.array(
-                    np.zeros([3, 0])
-                )
+                label_coordinates[str(cls)] = np.array(np.zeros([3, 0]))
             inds_with_cls = label_img == cls
             cords_with_cls = coords[:, inds_with_cls.ravel()]
-            label_coordinates[str(cls)] = np.concatenate(
-                (label_coordinates[str(cls)], cords_with_cls), 1
-            )
+            label_coordinates[str(cls)] = np.concatenate((label_coordinates[str(cls)], cords_with_cls), 1)
             print(
-                " ",
-                str(np.sum(inds_with_cls)),
-                "labels for class",
-                str(cls),
+                " ", str(np.sum(inds_with_cls)), "labels for class", str(cls),
             )
     if len(np.unique(label_img)) == 1:
         print(" ", 0, "labels", str(cls))
@@ -223,9 +206,7 @@ def parse_labels_in_image(img):
     for color in class_color_coding:
         # Find pixels with these labels
         inds = (
-            (np.abs(r - color[0]) < tolerance)
-            & (np.abs(g - color[1]) < tolerance)
-            & (np.abs(b - color[2]) < tolerance)
+            (np.abs(r - color[0]) < tolerance) & (np.abs(g - color[1]) < tolerance) & (np.abs(b - color[2]) < tolerance)
         )
         label_img[inds] = cls
         cls += 1

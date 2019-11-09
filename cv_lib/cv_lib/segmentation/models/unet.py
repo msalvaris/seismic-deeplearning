@@ -117,4 +117,3 @@ class UNet(nn.Module):
 def get_seg_model(cfg, **kwargs):
     model = UNet(cfg.MODEL.IN_CHANNELS, cfg.DATASET.NUM_CLASSES)
     return model
-
