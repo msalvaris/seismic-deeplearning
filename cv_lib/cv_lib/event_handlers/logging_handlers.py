@@ -46,7 +46,6 @@ def log_class_metrics(log_msg, engine, metrics_dict):
 
 class Evaluator:
     def __init__(self, evaluation_engine, data_loader):
-        logger = logging.getLogger(__name__)
         self._evaluation_engine = evaluation_engine
         self._data_loader = data_loader
 

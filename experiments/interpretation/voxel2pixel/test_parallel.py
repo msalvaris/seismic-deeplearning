@@ -399,7 +399,7 @@ def main():
         delayed(worker)(classified_cube, coord) for coord in tqdm(pixels)
     )
     
-    We do this:    
+    We do this:
     """
 
     # placeholder for results

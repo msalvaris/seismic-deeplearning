@@ -53,7 +53,7 @@ def _combine(mask_array):
 def _combine_classes(mask_array_list):
     """Combine classes
 
-    Segmentation implementations using this dataset seem to combine 
+    Segmentation implementations using this dataset seem to combine
     classes 2 and 3 so we are doing the same here and then relabeling the rest
 
     Args:
@@ -390,16 +390,20 @@ class PenobscotInlinePatchSectionDepthDataset(PenobscotInlinePatchDataset):
            patch_size (int): the size of the patch in pixels
            stride (int): the stride applied when extracting patches
            split (str, optional): what split to load, (train, val, test). Defaults to `train`
-           transforms (albumentations.augmentations.transforms, optional): albumentation transforms to apply to patches. Defaults to None
+           transforms (albumentations.augmentations.transforms, optional): albumentation transforms
+                                                                           to apply to patches.
+                                                                           Defaults to None
            exclude_files (list[str], optional): list of files to exclude. Defaults to None
            max_inlines (int, optional): maximum number of inlines to load. Defaults to None
            n_channels (int, optional): number of channels that the output should contain. Defaults to 3
-           complete_patches_only (bool, optional): whether to load incomplete patches that are padded to patch_size. Defaults to True
+           complete_patches_only (bool, optional): whether to load incomplete patches
+                                                   that are padded to patch_size. Defaults to True
         """
 
-        assert (
-            n_channels == 3
-        ), f"For the Section Depth based dataset the number of channels can only be 3. Currently n_channels={n_channels}"
+        assert n_channels == 3, (
+            f"For the Section Depth based dataset the number of channels can only be 3."
+            f"Currently n_channels={n_channels}"
+        )
         super(PenobscotInlinePatchSectionDepthDataset, self).__init__(
             root,
             patch_size,
@@ -446,11 +450,14 @@ class PenobscotInlinePatchDepthDataset(PenobscotInlinePatchDataset):
            patch_size (int): the size of the patch in pixels
            stride (int): the stride applied when extracting patches
            split (str, optional): what split to load, (train, val, test). Defaults to `train`
-           transforms (albumentations.augmentations.transforms, optional): albumentation transforms to apply to patches. Defaults to None
+           transforms (albumentations.augmentations.transforms, optional): albumentation transforms
+                                                                           to apply to patches.
+                                                                           Defaults to None
            exclude_files (list[str], optional): list of files to exclude. Defaults to None
            max_inlines (int, optional): maximum number of inlines to load. Defaults to None
            n_channels (int, optional): number of channels that the output should contain. Defaults to 3
-           complete_patches_only (bool, optional): whether to load incomplete patches that are padded to patch_size. Defaults to True
+           complete_patches_only (bool, optional): whether to load incomplete patches that are
+                                                   padded to patch_size. Defaults to True
         """
         assert (
             n_channels == 3

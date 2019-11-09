@@ -8,27 +8,22 @@ Modified version of the Alaudah testing script
 #TODO: Needs to be improved. Needs to be able to run across multiple GPUs and better factoring around the loader
 """
 
-import itertools
 import logging
 import logging.config
 import os
 from os import path
 
-import cv2
 import fire
 import numpy as np
 import torch
-import torch.nn.functional as F
 from albumentations import Compose, Normalize
 from cv_lib.segmentation import models
 from deepseismic_interpretation.dutchf3.data import (
-    add_patch_depth_channels,
     get_seismic_labels,
     get_test_loader,
 )
 from default import _C as config
 from default import update_config
-from toolz import compose, curry, itertoolz, pipe
 from torch.utils import data
 
 _CLASS_NAMES = [
