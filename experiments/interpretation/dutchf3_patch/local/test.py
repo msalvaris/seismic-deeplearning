@@ -20,6 +20,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from albumentations import Compose, Normalize, PadIfNeeded, Resize
+from cv_lib.utils import load_log_configuration
 from cv_lib.segmentation import models
 from deepseismic_interpretation.dutchf3.data import (
     add_patch_depth_channels,
@@ -171,7 +172,13 @@ def _compose_processing_pipeline(depth, aug=None):
 
 
 def _generate_batches(h, w, ps, patch_size, stride, batch_size=64):
+<<<<<<< HEAD
     hdc_wdx_generator = itertools.product(range(0, h - patch_size + ps, stride), range(0, w - patch_size + ps, stride),)
+=======
+    hdc_wdx_generator = itertools.product(
+        range(0, h - patch_size + ps, stride), range(0, w - patch_size + ps, stride),
+    )
+>>>>>>> 40973b46e55c590c8f1d53f88cded35a4ef4d7cf
 
     for batch_indexes in itertoolz.partition_all(batch_size, hdc_wdx_generator):
         yield batch_indexes
@@ -183,7 +190,13 @@ def _output_processing_pipeline(config, output):
     _, _, h, w = output.shape
     if config.TEST.POST_PROCESSING.SIZE != h or config.TEST.POST_PROCESSING.SIZE != w:
         output = F.interpolate(
+<<<<<<< HEAD
             output, size=(config.TEST.POST_PROCESSING.SIZE, config.TEST.POST_PROCESSING.SIZE,), mode="bilinear",
+=======
+            output,
+            size=(config.TEST.POST_PROCESSING.SIZE, config.TEST.POST_PROCESSING.SIZE,),
+            mode="bilinear",
+>>>>>>> 40973b46e55c590c8f1d53f88cded35a4ef4d7cf
         )
 
     if config.TEST.POST_PROCESSING.CROP_PIXELS > 0:
@@ -213,7 +226,14 @@ def _patch_label_2d(
     # generate output:
     for batch_indexes in _generate_batches(h, w, ps, patch_size, stride, batch_size=batch_size):
         batch = torch.stack(
+<<<<<<< HEAD
             [pipe(img_p, _extract_patch(hdx, wdx, ps, patch_size), pre_processing,) for hdx, wdx in batch_indexes],
+=======
+            [
+                pipe(img_p, _extract_patch(hdx, wdx, ps, patch_size), pre_processing,)
+                for hdx, wdx in batch_indexes
+            ],
+>>>>>>> 40973b46e55c590c8f1d53f88cded35a4ef4d7cf
             dim=0,
         )
 
@@ -250,7 +270,13 @@ def _evaluate_split(
     logger = logging.getLogger(__name__)
 
     TestSectionLoader = get_test_loader(config)
+<<<<<<< HEAD
     test_set = TestSectionLoader(config.DATASET.ROOT, split=split, is_transform=True, augmentations=section_aug,)
+=======
+    test_set = TestSectionLoader(
+        config.DATASET.ROOT, split=split, is_transform=True, augmentations=section_aug,
+    )
+>>>>>>> 40973b46e55c590c8f1d53f88cded35a4ef4d7cf
 
     n_classes = test_set.n_classes
 
@@ -322,7 +348,9 @@ def _write_section_file(labels, section_file):
 def test(*options, cfg=None):
     update_config(config, options=options, config_file=cfg)
     n_classes = config.DATASET.NUM_CLASSES
-    logging.config.fileConfig(config.LOG_CONFIG)
+
+    # Start logging
+    load_log_configuration(config.LOG_CONFIG)
     logger = logging.getLogger(__name__)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     log_dir, model_name = os.path.split(config.TEST.MODEL_PATH)
@@ -335,7 +363,17 @@ def test(*options, cfg=None):
     running_metrics_overall = runningScore(n_classes)
 
     # Augmentation
+<<<<<<< HEAD
     section_aug = Compose([Normalize(mean=(config.TRAIN.MEAN,), std=(config.TRAIN.STD,), max_pixel_value=1,)])
+=======
+    section_aug = Compose(
+        [
+            Normalize(
+                mean=(config.TRAIN.MEAN,), std=(config.TRAIN.STD,), max_pixel_value=1,
+            )
+        ]
+    )
+>>>>>>> 40973b46e55c590c8f1d53f88cded35a4ef4d7cf
 
     patch_aug = Compose(
         [

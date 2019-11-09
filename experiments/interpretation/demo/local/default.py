@@ -18,8 +18,7 @@ _C.WORKERS = 4
 _C.PRINT_FREQ = 20
 _C.AUTO_RESUME = False
 _C.PIN_MEMORY = True
-# TODO: this should be loaded by automatically figuring out the file path location
-_C.LOG_CONFIG = "/home/maxkaz/repos/DeepSeismic/logging.conf"
+_C.LOG_CONFIG = "logging.conf"
 _C.SEED = 42
 
 # size of voxel cube: WINDOW_SIZE x WINDOW_SIZE x WINDOW_SIZE; used for 3D models only

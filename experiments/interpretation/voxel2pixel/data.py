@@ -87,7 +87,7 @@ def write_segy(out_filename, in_filename, out_cube):
             iline = out_cube[i - iline_start, :, :]
             src.iline[i] = np.ascontiguousarray(iline.astype(dtype))
 
-    # TODO: rewrite this whole function - this is terrible
+    # TODO: rewrite this whole function
     # Moving temporal axis first again - just in case the user want to keep working on it
     out_cube = np.moveaxis(out_cube, -1, 0)
 

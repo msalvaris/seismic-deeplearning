@@ -1,11 +1,12 @@
-# Copyright (c) Microsoft Corporation. All rights reserved.
+# Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 # commitHash: c76bf579a0d5090ebd32426907d051d499f3e847
 # url: https://github.com/olivesgatech/facies_classification_benchmark
 
 """
 Modified version of the Alaudah testing script
-#TODO: Needs to be improved. Needs to be able to run across multiple GPUs and better factoring around the loader
+# TODO: Needs to be improved. Needs to be able to run across multiple GPUs and better
+#       factoring around the loader
 """
 
 import logging
@@ -17,11 +18,10 @@ import fire
 import numpy as np
 import torch
 from albumentations import Compose, Normalize
+from cv_lib.utils import load_log_configuration
 from cv_lib.segmentation import models
-from deepseismic_interpretation.dutchf3.data import (
-    get_seismic_labels,
-    get_test_loader,
-)
+
+from deepseismic_interpretation.dutchf3.data import get_test_loader
 from default import _C as config
 from default import update_config
 from torch.utils import data
@@ -93,7 +93,13 @@ def _evaluate_split(
     logger = logging.getLogger(__name__)
 
     TestSectionLoader = get_test_loader(config)
+<<<<<<< HEAD
     test_set = TestSectionLoader(data_dir=DATA_ROOT, split=split, is_transform=True, augmentations=section_aug,)
+=======
+    test_set = TestSectionLoader(
+        data_dir=DATA_ROOT, split=split, is_transform=True, augmentations=section_aug,
+    )
+>>>>>>> 40973b46e55c590c8f1d53f88cded35a4ef4d7cf
 
     n_classes = test_set.n_classes
 
@@ -155,7 +161,9 @@ def _write_section_file(labels, section_file):
 def test(*options, cfg=None):
     update_config(config, options=options, config_file=cfg)
     n_classes = config.DATASET.NUM_CLASSES
-    logging.config.fileConfig(config.LOG_CONFIG)
+
+    # Start logging
+    load_log_configuration(config.LOG_CONFIG)
     logger = logging.getLogger(__name__)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     log_dir, _ = os.path.split(config.TEST.MODEL_PATH)
@@ -168,7 +176,17 @@ def test(*options, cfg=None):
     running_metrics_overall = runningScore(n_classes)
 
     # Augmentation
+<<<<<<< HEAD
     section_aug = Compose([Normalize(mean=(config.TRAIN.MEAN,), std=(config.TRAIN.STD,), max_pixel_value=1,)])
+=======
+    section_aug = Compose(
+        [
+            Normalize(
+                mean=(config.TRAIN.MEAN,), std=(config.TRAIN.STD,), max_pixel_value=1,
+            )
+        ]
+    )
+>>>>>>> 40973b46e55c590c8f1d53f88cded35a4ef4d7cf
 
     splits = ["test1", "test2"] if "Both" in config.TEST.SPLIT else [config.TEST.SPLIT]
 

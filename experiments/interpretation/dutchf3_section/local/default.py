@@ -11,14 +11,15 @@ from yacs.config import CfgNode as CN
 
 _C = CN()
 
-_C.OUTPUT_DIR = "output"  # This will be the base directory for all output, such as logs and saved models
+
+_C.OUTPUT_DIR = "output"  # Base directory for all output (logs, models, etc)
 _C.LOG_DIR = ""  # This will be a subdirectory inside OUTPUT_DIR
 _C.GPUS = (0,)
 _C.WORKERS = 4
 _C.PRINT_FREQ = 20
 _C.AUTO_RESUME = False
 _C.PIN_MEMORY = True
-_C.LOG_CONFIG = "/data/home/vapaunic/repos/DeepSeismic/logging.conf"
+_C.LOG_CONFIG = "./logging.conf"  # Logging config file relative to the experiment
 _C.SEED = 42
 
 # Cudnn related params
